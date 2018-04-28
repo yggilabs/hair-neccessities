@@ -24,6 +24,7 @@
     "prebuild:js": "npm run test:js",
     "git:add": "git add .",
     "git:commit": "git commit -a -m \"automatic commit\"",
+    "git:remote": "git remote add origin https://github.com/yggilabs/hair-neccessities.git",
     "git:push": "git push -u origin master"
   },
   "repository": {
