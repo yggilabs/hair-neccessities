@@ -53,10 +53,7 @@
 
     constructor() {
       super(); // always call super() first in the ctor.
-      this._shadowRoot = this.attachShadow({
-        mode: 'open'
-      });
-      this._shadowRoot.appendChild(this._template().content.cloneNode(true));
+      this.appendChild(this._template().content.cloneNode(true));
       this._init = this._init.bind(this);
     }
 
@@ -78,7 +75,7 @@
     }
 
     _init() {
-      const doc = this.shadow;
+      const doc = document;
 
       const stripe = Stripe('pk_test_QNhqGRgedUlFdZuPIbgqwyfd');
       const elements = stripe.elements();
