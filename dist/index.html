@@ -79,7 +79,9 @@ gtag('config', 'UA-116382541-3');
     </app-slide>
   </app-carousel>
   <app-button class="observable">Get Measured</app-button>
-  <app-checkout></app-checkout>
+  <form action="your-server-side-code" method="post">
+    <script class="stripe-button" src="https://checkout.stripe.com/checkout.js" data-key="pk_test_QNhqGRgedUlFdZuPIbgqwyfd" data-amount="999" data-name="Demo Site" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto" defer></script>
+  </form>
   <script>(() => {
   "use strict";
 
