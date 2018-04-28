@@ -40,6 +40,9 @@
     _init() {
       const doc = this.shadow.host;
 
+      const stripe = Stripe('pk_test_QNhqGRgedUlFdZuPIbgqwyfd');
+      const elements = stripe.elements();
+
       // Custom styling can be passed to options when creating an Element.
       const style = {
         base: {
