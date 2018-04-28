@@ -17,9 +17,11 @@
         mode: 'open'
       });
       this._shadowRoot.appendChild(this._template().content.cloneNode(true));
+      this._init = this._init.bind(this);
     }
 
     connectedCallback() {
+      this._init();
     }
 
     disconnectedCallback() {
@@ -35,7 +37,9 @@
       console.warn("no template node defined in " + document.currentScript.ownerDocument.documentURI);
     }
 
-    _input() {
+    _init() {
+      const doc = this.shadow.host;
+
       // Custom styling can be passed to options when creating an Element.
       const style = {
         base: {
@@ -50,8 +54,8 @@
 
       const stripeTokenHandler = (token) => {
         // Insert the token ID into the form so it gets submitted to the server
-        const form = document.getElementById('payment-form');
-        const hiddenInput = document.createElement('input');
+        const form = doc.getElementById('payment-form');
+        const hiddenInput = doc.createElement('input');
         hiddenInput.setAttribute('type', 'hidden');
         hiddenInput.setAttribute('name', 'stripeToken');
         hiddenInput.setAttribute('value', token.id);
@@ -62,13 +66,13 @@
       };
 
       // Create a token or display an error when the form is submitted.
-      const form = document.getElementById('payment-form');
+      const form = doc.getElementById('payment-form');
 
       // Add an instance of the card Element into the `card-element` <div>.
       card.mount('#card-element');
 
       card.addEventListener('change', ({error}) => {
-        const displayError = document.getElementById('card-errors');
+        const displayError = doc.getElementById('card-errors');
         if (error) {
           displayError.textContent = error.message;
         } else {
@@ -82,7 +86,7 @@
         stripe.createToken(card).then(function(result) {
           if (result.error) {
             // Inform the customer that there was an error.
-            var errorElement = document.getElementById('card-errors');
+            var errorElement = doc.getElementById('card-errors');
             errorElement.textContent = result.error.message;
           } else {
             // Send the token to your server.
