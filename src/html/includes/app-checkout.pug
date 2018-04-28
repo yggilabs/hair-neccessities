@@ -1,50 +1,5 @@
 template#template
-  style.
-    :host {
-      display: block;
-    }
-    
-    .StripeElement {
-      background-color: white;
-      height: 40px;
-      padding: 10px 12px;
-      border-radius: 4px;
-      border: 1px solid transparent;
-      box-shadow: 0 1px 3px 0 #e6ebf1;
-      -webkit-transition: box-shadow 150ms ease;
-      transition: box-shadow 150ms ease;
-    }
-    
-    .StripeElement--focus {
-      box-shadow: 0 1px 3px 0 #cfd7df;
-    }
-    
-    .StripeElement--invalid {
-      border-color: #fa755a;
-    }
-    
-    .StripeElement--webkit-autofill {
-      background-color: #fefde5 !important;
-    }
-  form(action="", method="post", id="payment-form")
-    fieldset
-      .row
-        label(for="customer-name") Name
-        input#customer-name
-      .row
-        label(for="customer-email") Email
-        input#customer-email
-      .row
-        label(for="customer-phone") Phone
-        input#customer-phone
-      .row
-        label(for="customer-address") Address
-        input#customer-address
-    #form-row
-      label(for="card-element") Credit or debit card
-      #card-element
-      #card-errors(role="alert")
-    button Checkout
-script(src="https://js.stripe.com/v3/")      
+  button#customButton Checkout
+script(src="https://js.stripe.com/v3/")
 script
   include ../../scripts/app/checkout.js

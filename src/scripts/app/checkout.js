@@ -35,68 +35,29 @@
     }
 
     _init() {
-      const doc = document;
-
-      const stripe = Stripe('pk_test_QNhqGRgedUlFdZuPIbgqwyfd');
-      const elements = stripe.elements();
-
-      // Custom styling can be passed to options when creating an Element.
-      const style = {
-        base: {
-          // Add your base input styles here. For example:
-          fontSize: '16px',
-          color: "#32325d",
-        },
-      };
-
-      // Create an instance of the card Element.
-      const card = elements.create('card', {style});
-
-      const stripeTokenHandler = (token) => {
-        // Insert the token ID into the form so it gets submitted to the server
-        const form = doc.querySelector('#payment-form');
-        const hiddenInput = document.createElement('input');
-        hiddenInput.setAttribute('type', 'hidden');
-        hiddenInput.setAttribute('name', 'stripeToken');
-        hiddenInput.setAttribute('value', token.id);
-        form.appendChild(hiddenInput);
-
-        // Submit the form
-        form.submit();
-      };
-
-      // Create a token or display an error when the form is submitted.
-      const form = doc.querySelector('#payment-form');
-
-      // Add an instance of the card Element into the `card-element` <div>.
-      const cardelement = doc.querySelector('#card-element');
-
-      console.log(doc);
-
-      card.mount(cardelement);
-
-      card.addEventListener('change', ({error}) => {
-        const displayError = doc.querySelector('#card-errors');
-        if (error) {
-          displayError.textContent = error.message;
-        } else {
-          displayError.textContent = '';
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_QNhqGRgedUlFdZuPIbgqwyfd',
+        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        locale: 'auto',
+        token: function(token) {
+          // You can access the token ID with `token.id`.
+          // Get the token ID to your server-side code for use.
         }
       });
 
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        stripe.createToken(card).then(function(result) {
-          if (result.error) {
-            // Inform the customer that there was an error.
-            var errorElement = doc.querySelector('#card-errors');
-            errorElement.textContent = result.error.message;
-          } else {
-            // Send the token to your server.
-            stripeTokenHandler(result.token);
-          }
+      this.shadow.querySelector('#customButton').addEventListener('click', function(e) {
+        // Open Checkout with further options:
+        handler.open({
+          name: 'Demo Site',
+          description: '2 widgets',
+          amount: 2000
         });
+        e.preventDefault();
+      });
+
+      // Close Checkout on page navigation:
+      window.addEventListener('popstate', function() {
+        handler.close();
       });
     }
 
