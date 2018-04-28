@@ -38,7 +38,7 @@
     }
 
     _init() {
-      const doc = this.shadow.host;
+      const doc = this.shadow;
 
       const stripe = Stripe('pk_test_QNhqGRgedUlFdZuPIbgqwyfd');
       const elements = stripe.elements();
@@ -75,7 +75,7 @@
       const cardelement = doc.querySelector('#card-element');
 
       console.log(doc);
-      
+
       card.mount(cardelement);
 
       card.addEventListener('change', ({error}) => {
