@@ -10,7 +10,7 @@
     "build:js": "browserify src/scripts/main.js > dist/bundle.js && npm run copy:js",
     "build:css": "lessc src/styles/main.less | cssmin > dist/main.css",
     "build:html": "pug -P src/html -o dist/",
-    "build:res": "robocopy src/res dist",
+    "build:res": ":",
     "build": "npm run build:js && npm run build:css && npm run build:html && npm run build:res",
     "watch:js": "watch \"npm run build:js\" src/scripts/",
     "watch:css": "watch \"npm run build:css\" src/styles/",

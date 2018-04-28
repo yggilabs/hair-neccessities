@@ -1,0 +1,149 @@
+
+<template id="template">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    :host {
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      color: var(--font-color, #ffffff);
+      background-color: var(--background-color, #212121);
+      background-image: var(--background-image, none);
+      justify-content: space-between;      
+    }
+    
+    .wrapper {
+      display: flex;
+      height: 100%;
+      align-items: stretch;
+      transform: translateX(calc(-100% * var(--index, 0)));
+      transition: transform 500ms;
+    }
+    
+    [slot=title] {
+      
+    }
+    
+    ::slotted(:not([slot=title],[slot=nav])) {
+      display: none;
+    }
+    
+    ::slotted([slot=title]) {
+      font-size: .8em;
+      opacity: .87;
+    }
+  </style>
+  <form action="" method="post" id="payment-form">
+    <div id="form-row">
+      <label for="card-element">Credit or debit card</label>
+      <div id="card-element"></div>
+      <div id="card-errors" role="alert"></div>
+    </div>
+    <button></button>
+  </form>
+</template>
+<script src="https://js.stripe.com/v3/">     </script>
+<script>(() => {
+  "use strict";
+
+  window.customElements.define('app-checkout', class extends HTMLElement {
+
+    static get observedAttributes() {
+      return ['active'];
+    }
+
+    get shadow() {
+      return this._shadowRoot;
+    }
+
+    constructor() {
+      super(); // always call super() first in the ctor.
+      this._shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+      this._shadowRoot.appendChild(this._template().content.cloneNode(true));
+    }
+
+    connectedCallback() {
+    }
+
+    disconnectedCallback() {
+    }
+
+    attributeChangedCallback(attrName, oldVal, newVal) {}
+
+    _template() {
+      const template = document.currentScript.ownerDocument.querySelector("#template");
+      if (template) {
+        return template;
+      }
+      console.warn("no template node defined in " + document.currentScript.ownerDocument.documentURI);
+    }
+
+    _input() {
+      // Custom styling can be passed to options when creating an Element.
+      const style = {
+        base: {
+          // Add your base input styles here. For example:
+          fontSize: '16px',
+          color: "#32325d",
+        },
+      };
+
+      // Create an instance of the card Element.
+      const card = elements.create('card', {style});
+
+      const stripeTokenHandler = (token) => {
+        // Insert the token ID into the form so it gets submitted to the server
+        const form = document.getElementById('payment-form');
+        const hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+
+        // Submit the form
+        form.submit();
+      };
+
+      // Create a token or display an error when the form is submitted.
+      const form = document.getElementById('payment-form');
+
+      // Add an instance of the card Element into the `card-element` <div>.
+      card.mount('#card-element');
+
+      card.addEventListener('change', ({error}) => {
+        const displayError = document.getElementById('card-errors');
+        if (error) {
+          displayError.textContent = error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      });
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function(result) {
+          if (result.error) {
+            // Inform the customer that there was an error.
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // Send the token to your server.
+            stripeTokenHandler(result.token);
+          }
+        });
+      });
+    }
+
+  });
+})();
+
+</script>
