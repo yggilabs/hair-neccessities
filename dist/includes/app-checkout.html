@@ -123,7 +123,11 @@
       const form = doc.querySelector('#payment-form');
 
       // Add an instance of the card Element into the `card-element` <div>.
-      card.mount(doc.querySelector('#card-element'));
+      const cardelement = doc.querySelector('#card-element');
+
+      console.log(doc);
+      
+      card.mount(cardelement);
 
       card.addEventListener('change', ({error}) => {
         const displayError = doc.querySelector('#card-errors');
