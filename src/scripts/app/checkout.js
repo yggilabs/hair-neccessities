@@ -57,8 +57,8 @@
 
       const stripeTokenHandler = (token) => {
         // Insert the token ID into the form so it gets submitted to the server
-        const form = doc.getElementById('payment-form');
-        const hiddenInput = doc.createElement('input');
+        const form = doc.querySelector('#payment-form');
+        const hiddenInput = document.createElement('input');
         hiddenInput.setAttribute('type', 'hidden');
         hiddenInput.setAttribute('name', 'stripeToken');
         hiddenInput.setAttribute('value', token.id);
@@ -69,13 +69,13 @@
       };
 
       // Create a token or display an error when the form is submitted.
-      const form = doc.getElementById('payment-form');
+      const form = doc.querySelector('#payment-form');
 
       // Add an instance of the card Element into the `card-element` <div>.
       card.mount('#card-element');
 
       card.addEventListener('change', ({error}) => {
-        const displayError = doc.getElementById('card-errors');
+        const displayError = doc.querySelector('#card-errors');
         if (error) {
           displayError.textContent = error.message;
         } else {
@@ -89,7 +89,7 @@
         stripe.createToken(card).then(function(result) {
           if (result.error) {
             // Inform the customer that there was an error.
-            var errorElement = doc.getElementById('card-errors');
+            var errorElement = doc.querySelector('#card-errors');
             errorElement.textContent = result.error.message;
           } else {
             // Send the token to your server.
