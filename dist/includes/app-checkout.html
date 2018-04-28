@@ -18,7 +18,10 @@
 
     constructor() {
       super(); // always call super() first in the ctor.
-      this.appendChild(this._template().content.cloneNode(true));
+      this._shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+      this._shadowRoot.appendChild(this._template().content.cloneNode(true));
       this._init = this._init.bind(this);
     }
 
