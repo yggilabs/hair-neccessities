@@ -1,0 +1,56 @@
+{
+  "name": "hair-neccessities",
+  "version": "1.0.0",
+  "description": "Just the hair neccessities",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist/* && mkdir dist/includes",
+    "clean:html": "rimraf dist/*.html",
+    "copy:js": "robocopy src/scripts dist sw.js",
+    "build:js": "browserify src/scripts/main.js > dist/bundle.js && npm run copy:js",
+    "build:css": "lessc src/styles/main.less | cssmin > dist/main.css",
+    "build:html": "pug -P src/html -o dist/",
+    "build:res": "robocopy src/res dist",
+    "build": "npm run build:js && npm run build:css && npm run build:html && npm run build:res",
+    "watch:js": "watch \"npm run build:js\" src/scripts/",
+    "watch:css": "watch \"npm run build:css\" src/styles/",
+    "watch:html": "watch \"npm run build:html\" src/html/",
+    "watch:res": "watch \"npm run build:res\" src/res/",
+    "lint:js": "jshint src/scripts",
+    "test:js": "mocha",
+    "build:watch": "concurrently \"npm run watch:js\" \"npm run watch:css\" \"npm run watch:html\" \"npm run watch:res\"",
+    "serve": "concurrently \"npm run build:watch\" \"http-server ./dist\"",
+    "pretest:js": "npm run lint:js",
+    "prebuild:js": "npm run test:js",
+    "git:add": "git add .",
+    "git:commit": "git commit -a -m \"automatic commit\"",
+    "git:push": "git push -u origin master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yggilabs/hair-neccessities.git"
+  },
+  "author": "Sam Kelley <skelley.android@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yggilabs/hair-neccessities/issues"
+  },
+  "homepage": "https://github.com/yggilabs/hair-neccessities#readme",
+  "dependencies": {
+    "material-components-web": "^0.35.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "cssmin": "latest",
+    "jshint": "latest",
+    "less": "^3.0.2",
+    "mocha": "^5.1.1",
+    "pug": "^2.0.3",
+    "rimraf": "^2.6.2",
+    "watch": "latest"
+  },
+  "jshintConfig": {
+    "eqeqeq": true,
+    "esversion": 6
+  }
+}

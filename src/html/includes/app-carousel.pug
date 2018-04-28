@@ -1,0 +1,29 @@
+template#template
+  style.
+    * {
+      box-sizing: border-box;
+    }
+    
+    :host {
+      height: 100%;
+      width: 100%;
+      --index: 0;
+      display: block;
+      overflow: hidden;
+    }
+    
+    .wrapper {
+      display: flex;
+      height: 100%;
+      align-items: stretch;
+      transform: translateX(calc(-100% * var(--index, 0)));
+      transition: transform 500ms;
+    }
+    
+    ::slotted(:not(app-slide)) {
+      display: none;
+    }
+  .wrapper
+    slot
+script
+  include ../../scripts/app/carousel.js

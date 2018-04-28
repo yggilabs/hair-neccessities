@@ -1,0 +1,43 @@
+template#template
+  style.
+    * {
+      box-sizing: border-box;
+    }
+    
+    :host {
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      color: var(--font-color, #ffffff);
+      background-color: var(--background-color, #212121);
+      background-image: var(--background-image, none);
+      justify-content: space-between;      
+    }
+    
+    .wrapper {
+      display: flex;
+      height: 100%;
+      align-items: stretch;
+      transform: translateX(calc(-100% * var(--index, 0)));
+      transition: transform 500ms;
+    }
+    
+    [slot=title] {
+      
+    }
+    
+    ::slotted(:not([slot=title],[slot=nav])) {
+      display: none;
+    }
+    
+    ::slotted([slot=title]) {
+      font-size: .8em;
+      opacity: .87;
+    }
+  slot(name="title")
+  slot(name="nav")
+script
+  include ../../scripts/app/toolbar.js

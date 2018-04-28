@@ -1,0 +1,84 @@
+
+<template id="template">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    :host {
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      color: var(--font-color, #ffffff);
+      background-color: var(--background-color, #212121);
+      background-image: var(--background-image, none);
+      justify-content: space-between;      
+    }
+    
+    .wrapper {
+      display: flex;
+      height: 100%;
+      align-items: stretch;
+      transform: translateX(calc(-100% * var(--index, 0)));
+      transition: transform 500ms;
+    }
+    
+    [slot=title] {
+      
+    }
+    
+    ::slotted(:not([slot=title],[slot=nav])) {
+      display: none;
+    }
+    
+    ::slotted([slot=title]) {
+      font-size: .8em;
+      opacity: .87;
+    }
+  </style>
+  <slot name="title"></slot>
+  <slot name="nav"></slot>
+</template>
+<script>(() => {
+  "use strict";
+
+  window.customElements.define('app-toolbar', class extends HTMLElement {
+
+    static get observedAttributes() {
+      return ['active'];
+    }
+
+    get shadow() {
+      return this._shadowRoot;
+    }
+
+    constructor() {
+      super(); // always call super() first in the ctor.
+      this._shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+      this._shadowRoot.appendChild(this._template().content.cloneNode(true));
+    }
+
+    connectedCallback() {
+    }
+
+    disconnectedCallback() {
+    }
+
+    attributeChangedCallback(attrName, oldVal, newVal) {}
+
+    _template() {
+      const template = document.currentScript.ownerDocument.querySelector("#template");
+      if (template) {
+        return template;
+      }
+      console.warn("no template node defined in " + document.currentScript.ownerDocument.documentURI);
+    }
+  });
+})();
+
+</script>

@@ -1,0 +1,51 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='description' content='some description')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    title Board
+    // Disable tap highlight on IE
+    meta(name='msapplication-tap-highlight' content='no')
+    // Web Application Manifest
+    link(rel='manifest' href='manifest.json')
+    // Add to homescreen for Chrome on Android
+    meta(name='mobile-web-app-capable' content='yes')
+    meta(name='application-name' content='Web Starter Kit')
+    link(rel='icon' sizes='192x192' href='images/touch/chrome-touch-icon-192x192.png')
+    // Add to homescreen for Safari on iOS
+    meta(name='apple-mobile-web-app-capable' content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style' content='black')
+    meta(name='apple-mobile-web-app-title' content='Web Starter Kit')
+    link(rel='apple-touch-icon' href='images/touch/apple-touch-icon.png')
+    // Tile icon for Win8 (144x144 + tile color)
+    meta(name='msapplication-TileImage' content='images/touch/ms-touch-icon-144x144-precomposed.png')
+    meta(name='msapplication-TileColor' content='#2F3BA2')
+    // Color the status bar on mobile devices
+    meta(name='theme-color' content='#2F3BA2')
+    style
+      include ../styles/main.less
+    link(href='includes/app.html', rel='import', async)
+    link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='preload', as='style', onload='this.onload=null;this.rel="stylesheet"')
+    noscript
+      link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet')
+  app-toolbar(style="--font-color: #ffffff; --background-color: #212121;")
+    h1(slot="title") HN
+    button(slot="nav") ...
+  app-carousel
+    app-slide.observable(style="--font-color: #212121; --background-color: #ffffff; --background-image: url('https://previews.123rf.com/images/paffy/paffy1502/paffy150200076/36478773-handsome-man-fashion-model-with-toupee-sitting-on-stone-stairs-in-summertime-over-city-background-Stock-Photo.jpg');")
+      h2(slot="title") The hair you were meant to have
+      h3(slot="sub-title")
+    app-slide.observable
+      h2(slot="title") Precisely measured
+      h3(slot="sub-title") No hassle directly from your phone
+    app-slide.observable
+      h2(slot="title") Expertly crafted
+      h3(slot="sub-title") Over 15 minutes of exerience in the inmdustry
+  app-button.observable Get Measured
+  script
+    include ../scripts/sw-loader.js
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-loader.js', integrity='sha256-fUVqCtpScUF69qkFkeuHmcShr2N2UleRQJhRG4etHds=', crossorigin='anonymous')
+  script(src="https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver")
+  script(src='bundle.js')
