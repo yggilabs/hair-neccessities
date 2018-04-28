@@ -1,42 +1,31 @@
 
 <template id="template">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    
     :host {
-      width: 100%;
-      display: flex;
-      overflow: hidden;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      color: var(--font-color, #ffffff);
-      background-color: var(--background-color, #212121);
-      background-image: var(--background-image, none);
-      justify-content: space-between;      
+      display: block;
     }
     
-    .wrapper {
-      display: flex;
-      height: 100%;
-      align-items: stretch;
-      transform: translateX(calc(-100% * var(--index, 0)));
-      transition: transform 500ms;
+    .StripeElement {
+      background-color: white;
+      height: 40px;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      box-shadow: 0 1px 3px 0 #e6ebf1;
+      -webkit-transition: box-shadow 150ms ease;
+      transition: box-shadow 150ms ease;
     }
     
-    [slot=title] {
-      
+    .StripeElement--focus {
+      box-shadow: 0 1px 3px 0 #cfd7df;
     }
     
-    ::slotted(:not([slot=title],[slot=nav])) {
-      display: none;
+    .StripeElement--invalid {
+      border-color: #fa755a;
     }
     
-    ::slotted([slot=title]) {
-      font-size: .8em;
-      opacity: .87;
+    .StripeElement--webkit-autofill {
+      background-color: #fefde5 !important;
     }
   </style>
   <form action="" method="post" id="payment-form">
