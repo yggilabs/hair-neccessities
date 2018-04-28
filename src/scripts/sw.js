@@ -10,7 +10,8 @@ const urlsToCache = [
   'includes/app-toolbar.html',
   'includes/app.html',
   'includes/app-carousel.html',
-  'includes/app-slide.html'
+  'includes/app-slide.html',
+  'includes/app-checkout.html',
 ];
 
 self.addEventListener('install', function(event) {
