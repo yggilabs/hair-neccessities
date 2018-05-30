@@ -8,15 +8,16 @@
 	var checkout_url = "https://us-central1-hair-necessities.cloudfunctions.net/payments"
 	var stripe = Stripe('pk_test_QNhqGRgedUlFdZuPIbgqwyfd');
 	var paymentRequest = stripe.paymentRequest({
-  country: 'US',
-  currency: 'usd',
-  total: {
-    label: total_label,
-    amount: total_amount,
-  },
-	requestPayerName: true,
-  requestPayerEmail: true
-});
+	  country: 'US',
+	  currency: 'usd',
+	  total: {
+	    label: total_label,
+	    amount: total_amount,
+	  },
+	  requestPayerName: true,
+	  requestShippingAddress,
+  	  requestPayerEmail: true
+	});
 	
 	var elements = stripe.elements();
 	var prButton = elements.create('paymentRequestButton', {
