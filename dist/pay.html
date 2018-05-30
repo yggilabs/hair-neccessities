@@ -12,6 +12,7 @@ var paymentRequest = stripe.paymentRequest({
     label: 'Demo total',
     amount: 1000,
   },
+  requestShipping: true,
   requestPayerName: true,
   requestPayerEmail: true,
 });
