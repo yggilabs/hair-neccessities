@@ -31,6 +31,7 @@ paymentRequest.canMakePayment().then(function(result) {
 });
 
 paymentRequest.on('token', function(ev) {
+  console.log(ev)
   // Send the token to your server to charge it!
   fetch('https://us-central1-hair-necessities.cloudfunctions.net/payments/', {
     method: 'POST',
