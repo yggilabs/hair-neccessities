@@ -14,17 +14,7 @@ var paymentRequest = stripe.paymentRequest({
   },
   requestShipping: true,
   requestPayerName: true,
-  requestPayerEmail: true,
-  shippingOptions: [
-    // The first shipping option in this list appears as the default
-    // option in the browser payment interface.
-    {
-      id: 'flat-rate',
-      label: 'Flat rate shipping in the US',
-      detail: 'Arrives in 5 to 7 days',
-      amount: 1000,
-    },
-  ],
+  requestPayerEmail: true
 });
 
 var elements = stripe.elements();
