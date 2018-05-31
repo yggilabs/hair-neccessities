@@ -66,11 +66,15 @@ paymentRequest.on('shippingaddresschange', function(ev) {
       return response.json();
     }).then(function(result) {
       console.log(result)
+      result.supportedShippingOptions.forEach(option => {
+        option.label = option.description
+      })
       ev.updateWith({
         status: 'success',
         shippingOptions: result.supportedShippingOptions,
       });
     }).catch(function(error) {
+      console.log(error)
       ev.updateWith({status: 'invalid_shipping_address'});
     })
 
