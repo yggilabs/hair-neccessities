@@ -54,7 +54,6 @@ paymentRequest.on('token', function(ev) {
 });
 
 paymentRequest.on('shippingaddresschange', function(ev) {
-  console.log(ev)
   if (ev.shippingAddress.country !== 'US') {
     ev.updateWith({status: 'invalid_shipping_address'});
   } else {
@@ -71,7 +70,7 @@ paymentRequest.on('shippingaddresschange', function(ev) {
         shippingOptions: result.supportedShippingOptions,
       });
     }).catch(function(error) {
-      ev.complete('fail');
+      ev.updateWith({status: 'unable to calculate shipping'});
     })
 
   }
