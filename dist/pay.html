@@ -52,4 +52,24 @@ paymentRequest.on('token', function(ev) {
     }
   });
 });
+
+paymentRequest.on('shippingaddresschange', function(ev) {
+  if (ev.shippingAddress.country !== 'US') {
+    ev.updateWith({status: 'invalid_shipping_address'});
+  } else {
+    // Perform server-side request to fetch shipping options
+    fetch('https://us-central1-hair-necessities.cloudfunctions.net/payments/shipping/', {
+      data: JSON.stringify({
+        shippingAddress: ev.shippingAddress
+      })
+    }).then(function(response) {
+      return response.json();
+    }).then(function(result) {
+      ev.updateWith({
+        status: 'success',
+        shippingOptions: result.supportedShippingOptions,
+      });
+    });
+  }
+});
 </script>
