@@ -60,9 +60,9 @@ paymentRequest.on('shippingaddresschange', function(ev) {
   } else {
     // Perform server-side request to fetch shipping options
     fetch('https://us-central1-hair-necessities.cloudfunctions.net/payments/shipping/', {
-      data: JSON.stringify({
-        shippingAddress: ev.shippingAddress
-      })
+      method: 'POST',
+      body: JSON.stringify({shippingAddress: ev.shippingAddress}),
+      headers: {'content-type': 'application/json'},
     }).then(function(response) {
       return response.json();
     }).then(function(result) {
@@ -70,7 +70,10 @@ paymentRequest.on('shippingaddresschange', function(ev) {
         status: 'success',
         shippingOptions: result.supportedShippingOptions,
       });
-    });
+    }).catch(function(error) {
+      ev.complete('fail');
+    })
+
   }
 });
 </script>
