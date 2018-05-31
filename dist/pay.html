@@ -70,7 +70,7 @@ paymentRequest.on('shippingaddresschange', function(ev) {
         shippingOptions: result.supportedShippingOptions,
       });
     }).catch(function(error) {
-      ev.updateWith({status: 'unable to calculate shipping'});
+      ev.updateWith({status: 'invalid_shipping_address'});
     })
 
   }
