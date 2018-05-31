@@ -65,6 +65,7 @@ paymentRequest.on('shippingaddresschange', function(ev) {
     }).then(function(response) {
       return response.json();
     }).then(function(result) {
+      console.log(result)
       ev.updateWith({
         status: 'success',
         shippingOptions: result.supportedShippingOptions,
