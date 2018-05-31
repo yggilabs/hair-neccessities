@@ -68,7 +68,9 @@ paymentRequest.on('shippingaddresschange', function(ev) {
       console.log(result)
       result.supportedShippingOptions.forEach(option => {
         option.label = option.description
+        option.detail = "Estimated delivery: " + (new Date(option.delivery_estimate.date)).toDateString()
       })
+      result.supportedShippingOptions.sort((a,b) => a.amount - b.amount)
       ev.updateWith({
         status: 'success',
         shippingOptions: result.supportedShippingOptions,
