@@ -10,6 +10,11 @@
   input:valid + label::after {
     content: '✔';
   }  
+  
+  input:not(:valid) + label + input[type=submit] {
+    display: none;
+  } 
 </style>
 <input id="file" type="file" accept="image/*" capture="camera" required>
-<label for="file">📸</label>
+<label for="file">Photo</label>
+<input type="submit">
