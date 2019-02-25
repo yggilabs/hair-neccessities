@@ -1,5 +1,15 @@
 # Photo
 
-<input type="file" accept="image/*" capture="camera">
-
+<style>
+  input {
+    display: none;
+  }
+  
+  input:valid + label::after {
+    content: '✔';
+  }
+  
+</style>
+<input name="file" type="file" accept="image/*" capture="camera">
+<label for="file">📸</label>
 [process](confirm)
