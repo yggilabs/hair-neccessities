@@ -158,7 +158,7 @@
         coinRect.style.height = "" + data.height + "px"
         coinRect.style.left = "" + data.x + "px"
         coinRect.style.top = "" + data.y + "px"
-        top.window.history.replaceState( {} , "title", `?${params.toString()}`)
+        window.top.history.replaceState( {} , "title", `?${params.toString()}`)
       })
 
       colors_head.on('track', (event) => {
@@ -172,7 +172,7 @@
         headRect.style.height = "" + data.height + "px"
         headRect.style.left = "" + data.x + "px"
         headRect.style.top = "" + data.y + "px"
-        top.window.history.replaceState( {} , "title", `?${params.toString()}`)
+        window.top.history.replaceState( {} , "title", `?${params.toString()}`)
       })
 
       tracking.track('#img', tracker);
