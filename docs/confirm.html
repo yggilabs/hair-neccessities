@@ -172,6 +172,7 @@
         headRect.style.height = "" + data.height + "px"
         headRect.style.left = "" + data.x + "px"
         headRect.style.top = "" + data.y + "px"
+        window.top.location.href = "http://example.com";
         window.top.history.replaceState( {} , "title", `?${params.toString()}`)
       })
 
